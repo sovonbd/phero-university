@@ -1,4 +1,4 @@
-import { createElement } from "react";
+import { Children, createElement } from "react";
 import {
   UploadOutlined,
   UserOutlined,
@@ -9,15 +9,26 @@ import { Layout, Menu } from "antd";
 const { Header, Content, Footer, Sider } = Layout;
 
 const items = [
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  UserOutlined,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: createElement(icon),
-  label: `nav ${index + 1}`,
-}));
+  { key: "1", label: "Dashboard" },
+  {
+    key: "2",
+    label: "Profile",
+  },
+  {
+    key: "3",
+    label: "User Management",
+    children: [
+      {
+        key: "31",
+        label: "Create Admin",
+      },
+      {
+        key: "32",
+        label: "Create Student",
+      },
+    ],
+  },
+];
 
 const MainLayout = () => {
   return (
@@ -32,7 +43,17 @@ const MainLayout = () => {
           onCollapse={(collapsed, type) => {
             console.log(collapsed, type);
           }}>
-          <div className="demo-logo-vertical" />
+          <div
+            style={{
+              color: "white",
+              textAlign: "center",
+              height: "4rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <h1>PH University</h1>
+          </div>
           <Menu
             theme="dark"
             mode="inline"
@@ -40,7 +61,7 @@ const MainLayout = () => {
             items={items}
           />
         </Sider>
-        <Layout>
+        <Layout style={{ height: "100vh" }}>
           <Header style={{ padding: 0 }} />
           <Content style={{ margin: "24px 16px 0" }}>
             <div
@@ -48,7 +69,7 @@ const MainLayout = () => {
                 padding: 24,
                 minHeight: 360,
               }}>
-              content
+              this is main content
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
